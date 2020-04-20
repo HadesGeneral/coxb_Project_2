@@ -302,12 +302,12 @@ def word_frequency_title_one():
 
     body_data_one = pd.read_csv(r"C:\Users\brian\PycharmProjects\coxb_Project_2\title_one.csv")
 
-    body_data_one.replace(to_replace=['\n', ".", ',', '', '-'], value=" ")
+    body_data_one.replace(to_replace=['\n', '.', ',', '', '-', '('], value=" ")
 
     dictionary_one = {}
 
     for submission_text in body_data_one["title"]:
-        submission_text = str(submission_text)
+        submission_text = str.lower(submission_text)
         for word in submission_text.split(" " or '\n'):
             if word not in stop_words:
                 dictionary_one[word] = dictionary_one.get(word, 0)+1
@@ -335,7 +335,7 @@ def word_frequency_title_two():
     dictionary_two = {}
 
     for submission_text in body_data_two["title"]:
-        submission_text = str(submission_text)
+        submission_text = str.lower(submission_text)
         for word in submission_text.split(" " or '\n'):
             if word not in stop_words:
                 dictionary_two[word] = dictionary_two.get(word, 0)+1
@@ -386,7 +386,7 @@ def graph_title(x_one, x_two):
     plt.figure(0)
     plt.xlabel("words")  # Label the X axis
     plt.ylabel("Score")  # Label the Y axis
-    plt.title("Frequency of Words for Second Subreddit Titles")  # Set the plot’s title
+    plt.title("Frequency of Words for second Subreddit Titles")  # Set the plot’s title
     # sample_data["score"] is a list of scores
     plt.scatter(words[:10], freq[:10])
     plt.show()
@@ -402,8 +402,9 @@ def main():
     # save_all(x_one=subreddit_one, x_two=subreddit_two)
     # character_frequency_title()
     # word_frequency_body()
-    # word_frequency_title_one()
-    graph_title(x_one=subreddit_one, x_two=subreddit_two)
+    word_frequency_title_one()
+    word_frequency_title_two()
+    # graph_title(x_one=subreddit_one, x_two=subreddit_two)
 
 
 if __name__ == '__main__':
