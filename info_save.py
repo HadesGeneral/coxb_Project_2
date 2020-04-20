@@ -177,13 +177,15 @@ def save_all(x_one, x_two):
             "title": [],
             "body": [],
             "redditor": [],
-            "score": []}
+            "score": [],
+            "created": []}
 
     for submission in one_all:
         one_dict_all_info["title"].append(submission.title)
         one_dict_all_info['redditor'].append(submission.author)
         one_dict_all_info['body'].append(submission.selftext)
         one_dict_all_info['score'].append(submission.score)
+        one_dict_all_info['created'].append(datetime.datetime.fromtimestamp(submission.created))
 
     df = pd.DataFrame(one_dict_all_info)
     df.to_csv('one_all_info.csv')
@@ -195,13 +197,15 @@ def save_all(x_one, x_two):
             "title": [],
             "body": [],
             "redditor": [],
-            "score": []}
+            "score": [],
+            "created": []}
 
     for submission in two_all:
         two_dict_all_info["title"].append(submission.title)
         two_dict_all_info['redditor'].append(submission.author)
         two_dict_all_info['body'].append(submission.selftext)
         two_dict_all_info['score'].append(submission.score)
+        two_dict_all_info['created'].append(datetime.datetime.fromtimestamp(submission.created))
 
     df = pd.DataFrame(two_dict_all_info)
     df.to_csv('two_all_info.csv')
@@ -399,7 +403,7 @@ def main():
     # character_frequency_title()
     # word_frequency_body()
     # word_frequency_title_one()
-    # raph_title()
+    # graph_title()
 
 
 if __name__ == '__main__':
