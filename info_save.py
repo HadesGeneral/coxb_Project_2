@@ -25,12 +25,12 @@ def initialize_program():
     :return: subreddit_one, subreddit_two
     """
     global subreddit_one, subreddit_two
-    sub_one = "nosleep" # input("What is your first subreddit?")    # User input for first subreddit
+    sub_one = "nosleep"  # input("What is your first subreddit?")    # User input for first subreddit
     subreddit_one = reddit.subreddit(sub_one)   # variable to manipulate first subreddit
 
     print("")   # visually separate Questions
 
-    sub_two = "libraryofshadows" # input("What is your second subreddit?")   # User input for second subreddit
+    sub_two = "libraryofshadows"  # input("What is your second subreddit?")   # User input for second subreddit
     subreddit_two = reddit.subreddit(sub_two)   # variable to manipulate first subreddit
 
     return subreddit_one, subreddit_two
@@ -348,7 +348,7 @@ def word_frequency_title_two():
     return words_two
 
 
-def graph_title():
+def graph_title(x_one, x_two):
     """
     Takes the dictionaries made from the titles and makes a bar graph showing visually the number of times each word is
     used between each sub reddit.
@@ -367,7 +367,7 @@ def graph_title():
     plt.figure(0)
     plt.xlabel("words")  # Label the X axis
     plt.ylabel("Score")  # Label the Y axis
-    plt.title("frequency of words")  # Set the plot’s title
+    plt.title('Frequency of Words for First Subreddit Titles')  # Set the plot’s title
     # sample_data["score"] is a list of scores
     plt.scatter(words[:10], freq[:10])
     plt.show()
@@ -386,7 +386,7 @@ def graph_title():
     plt.figure(0)
     plt.xlabel("words")  # Label the X axis
     plt.ylabel("Score")  # Label the Y axis
-    plt.title("frequency of words")  # Set the plot’s title
+    plt.title("Frequency of Words for Second Subreddit Titles")  # Set the plot’s title
     # sample_data["score"] is a list of scores
     plt.scatter(words[:10], freq[:10])
     plt.show()
@@ -398,12 +398,12 @@ def main():
     # save_title(x_one=subreddit_one, x_two=subreddit_two)
     # save_author(x_one=subreddit_one, x_two=subreddit_two)
     # save_body(x_one=subreddit_one, x_two=subreddit_two)
-    save_date(x_one=subreddit_one, x_two=subreddit_two)
+    # save_date(x_one=subreddit_one, x_two=subreddit_two)
     # save_all(x_one=subreddit_one, x_two=subreddit_two)
     # character_frequency_title()
     # word_frequency_body()
     # word_frequency_title_one()
-    # graph_title()
+    graph_title(x_one=subreddit_one, x_two=subreddit_two)
 
 
 if __name__ == '__main__':
