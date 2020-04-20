@@ -1,7 +1,7 @@
 import praw
 from praw.models import MoreComments
 import pandas as pd
-import datetime as dt
+import datetime
 import nltk
 import csv
 import re
@@ -138,6 +138,32 @@ def save_body(x_one, x_two):
 
     df = pd.DataFrame(sub_two_dict_body)
     df.to_csv('body_two.csv')
+
+
+def save_date(x_one, x_two):
+    """
+    saves the date of the first thousand post body's of each subreddit sorted by top for manipulation
+    : return:
+    """
+    top_one = x_one.top(limit=1000)
+    sub_one_dict_date = {"created": []}
+
+    for submission in top_one:
+        sub_one_dict_date['created'].append(datetime.datetime.fromtimestamp(submission.created))
+
+    df = pd.DataFrame(sub_one_dict_date)
+    df.to_csv('date_one.csv')
+
+    # ----------------------------------------------------------
+
+    top_two = x_two.top(limit=1000)
+    sub_two_dict_date = {"created": []}
+
+    for submission in top_two:
+        sub_two_dict_date['created'].append(datetime.datetime.fromtimestamp(submission.created))
+
+    df = pd.DataFrame(sub_two_dict_date)
+    df.to_csv('date_two.csv')
 
 
 def save_all(x_one, x_two):
@@ -368,11 +394,12 @@ def main():
     # save_title(x_one=subreddit_one, x_two=subreddit_two)
     # save_author(x_one=subreddit_one, x_two=subreddit_two)
     # save_body(x_one=subreddit_one, x_two=subreddit_two)
+    save_date(x_one=subreddit_one, x_two=subreddit_two)
     # save_all(x_one=subreddit_one, x_two=subreddit_two)
     # character_frequency_title()
     # word_frequency_body()
     # word_frequency_title_one()
-    graph_title()
+    # raph_title()
 
 
 if __name__ == '__main__':
