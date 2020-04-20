@@ -248,7 +248,7 @@ def character_frequency_title():
     print(character_two)
 
 
-def word_frequency_body():
+def word_frequency_body_one():
     """
     Runs through the bodies of the posts from each subreddit and counts how many each word is used, while taking out
     stopwords
@@ -257,7 +257,7 @@ def word_frequency_body():
 
     body_data_one = pd.read_csv(r"C:\Users\brian\PycharmProjects\coxb_Project_2\body_one.csv")
 
-    body_data_one.replace(to_replace=['\n', ".", ',', '', '-'], value=" ")
+    body_data_one.replace(to_replace=['\n', ".", ',', '', '-', ';', ':', '!', '**', "*"], value=" ")
 
     dictionary_one = {}
 
@@ -273,11 +273,12 @@ def word_frequency_body():
     print(words_one)
     print("")
 
-    # -------------------------------------------------------------------------------------------------
+
+def word_frequency_body_two():
 
     body_data_two = pd.read_csv(r"C:\Users\brian\PycharmProjects\coxb_Project_2\body_two.csv")
 
-    body_data_two.replace(to_replace=['\n', ".", ',', '', '-'], value=" ")
+    body_data_two.replace(to_replace=['\n', ".", ',', '', '-', ';', ':', '!', '*'], value=" ")
 
     dictionary_two = {}
 
@@ -293,10 +294,10 @@ def word_frequency_body():
     print(words_two)
 
 
-def word_frequency_title_one():
+def word_frequency_title_lowercase_one():
     """
     Runs through the titles of the posts from the first subreddit and counts how many each word is used, while taking out
-    stopwords
+    stopwords, lowercase
     :return: words_one, words_two
     """
 
@@ -321,16 +322,16 @@ def word_frequency_title_one():
     return words_one
 
 
-def word_frequency_title_two():
+def word_frequency_title_lowercase_two():
     """
     Runs through the titles of the posts from the second subreddit and counts how many each word is used, while taking out
-    stopwords
+    stopwords, lowercase
     :return:  words_two
     """
 
     body_data_two = pd.read_csv(r"C:\Users\brian\PycharmProjects\coxb_Project_2\title_two.csv")
 
-    body_data_two.replace(to_replace=['\n', ".", ',', '', '-'], value=" ")
+    body_data_two.replace(to_replace=['\n', ".", ',', '', '-', '('], value=" ")
 
     dictionary_two = {}
 
@@ -348,14 +349,113 @@ def word_frequency_title_two():
     return words_two
 
 
-def graph_title(x_one, x_two):
+def word_frequency_title_regular_one():
+    """
+    Runs through the titles of the posts from the first subreddit and counts how many each word is used, while taking out
+    stopwords
+    :return: words_one, words_two
+    """
+
+    body_data_one = pd.read_csv(r"C:\Users\brian\PycharmProjects\coxb_Project_2\title_one.csv")
+
+    body_data_one.replace(to_replace=['\n', '.', ',', '', '-', '('], value=" ")
+
+    dictionary_one = {}
+
+    for submission_text in body_data_one["title"]:
+        submission_text = str(submission_text)
+        for word in submission_text.split(" " or '\n'):
+            if word not in stop_words:
+                dictionary_one[word] = dictionary_one.get(word, 0)+1
+
+    words_one = list(dictionary_one.items())
+    words_one.sort(key=lambda x: x[1])
+    words_one.reverse()
+    print(words_one)
+    print("")
+
+    return words_one
+
+
+def word_frequency_title_regular_two():
+    """
+    Runs through the titles of the posts from the second subreddit and counts how many each word is used, while taking out
+    stopwords
+    :return:  words_two
+    """
+
+    body_data_two = pd.read_csv(r"C:\Users\brian\PycharmProjects\coxb_Project_2\title_two.csv")
+
+    body_data_two.replace(to_replace=['\n', ".", ',', '', '-', '('], value=" ")
+
+    dictionary_two = {}
+
+    for submission_text in body_data_two["title"]:
+        submission_text = str.lower(submission_text)
+        for word in submission_text.split(" " or '\n'):
+            if word not in stop_words:
+                dictionary_two[word] = dictionary_two.get(word, 0)+1
+
+    words_two = list(dictionary_two.items())
+    words_two.sort(key=lambda x: x[1])
+    words_two.reverse()
+    print(words_two)
+
+    return words_two
+
+
+def graph_title_lowercase(x_one, x_two):
+    """
+    Takes the dictionaries made from the titles and makes a bar graph showing visually the number of times each word is
+    used between each sub reddit. Everything being lowercase
+    :return:
+    """
+
+    word_freq_one = word_frequency_title_lowercase_one()
+    words = []
+    freq = []
+    for words_in_title in word_freq_one:
+        words.append(words_in_title[0])
+    for freq_of_word in word_freq_one:
+        freq.append(freq_of_word[1])
+    print(freq)
+    print(words)
+    plt.figure(0)
+    plt.xlabel("words")  # Label the X axis
+    plt.ylabel("Score")  # Label the Y axis
+    plt.title('Frequency of Words for First Subreddit Titles (lowercase)')  # Set the plot’s title
+    # sample_data["score"] is a list of scores
+    plt.scatter(words[:10], freq[:10])
+    plt.show()
+
+    # ---------------------------------------------------------------------------------------------
+
+    word_freq_two = word_frequency_title_lowercase_two()
+    words = []
+    freq = []
+    for words_in_title in word_freq_two:
+        words.append(words_in_title[0])
+    for freq_of_word in word_freq_two:
+        freq.append(freq_of_word[1])
+    print(freq)
+    print(words)
+    plt.figure(0)
+    plt.xlabel("words")  # Label the X axis
+    plt.ylabel("Score")  # Label the Y axis
+    plt.title("Frequency of Words for second Subreddit Titles (lowercase)")  # Set the plot’s title
+    # sample_data["score"] is a list of scores
+    plt.scatter(words[:10], freq[:10])
+    plt.show()
+
+
+def graph_title_regular(x_one, x_two):
     """
     Takes the dictionaries made from the titles and makes a bar graph showing visually the number of times each word is
     used between each sub reddit.
     :return:
     """
 
-    word_freq_one = word_frequency_title_one()
+    word_freq_one = word_frequency_title_regular_one()
     words = []
     freq = []
     for words_in_title in word_freq_one:
@@ -374,7 +474,7 @@ def graph_title(x_one, x_two):
 
     # ---------------------------------------------------------------------------------------------
 
-    word_freq_two = word_frequency_title_two()
+    word_freq_two = word_frequency_title_regular_two()
     words = []
     freq = []
     for words_in_title in word_freq_two:
@@ -401,10 +501,14 @@ def main():
     # save_date(x_one=subreddit_one, x_two=subreddit_two)
     # save_all(x_one=subreddit_one, x_two=subreddit_two)
     # character_frequency_title()
-    # word_frequency_body()
-    word_frequency_title_one()
-    word_frequency_title_two()
-    # graph_title(x_one=subreddit_one, x_two=subreddit_two)
+    word_frequency_body_one()
+    # word_frequency_body_two()
+    # word_frequency_title_regular_one()
+    # word_frequency_title_regular_two()
+    # word_frequency_title_lowercase_one()
+    # word_frequency_title_lowercase_two()
+    # graph_title_lowercase(x_one=subreddit_one, x_two=subreddit_two)
+    # graph_title_regular(x_one=subreddit_one, x_two=subreddit_two)
 
 
 if __name__ == '__main__':
