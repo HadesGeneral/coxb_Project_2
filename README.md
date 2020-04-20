@@ -12,6 +12,8 @@ Libraries:
 	Pandas
 
 	Date and time
+	
+	Matplotlib
 ___
 Functions :
     Initialize_program -- make sure stopwords are up to date and connecting to the subreddits specified by the user
