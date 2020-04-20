@@ -371,7 +371,7 @@ def main():
     # save_all(x_one=subreddit_one, x_two=subreddit_two)
     # character_frequency_title()
     # word_frequency_body()
-    # word_frequency_title()
+    # word_frequency_title_one()
     graph_title()
 
 
