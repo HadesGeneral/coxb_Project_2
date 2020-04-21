@@ -5,10 +5,17 @@ import datetime
 import nltk
 import csv
 import re
+import os
 from nltk.corpus import stopwords
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
+from pprint import pprint
+import gensim
+import gensim.corpora as corpora
+from gensim.utils import simple_preprocess
+from gensim.models import CoherenceModel
+from smart_open import smart_open
 
 stop_words = stopwords.words('english')
 reddit = praw.Reddit(client_id='RIzXE97ti1Md4A',
@@ -75,6 +82,7 @@ def save_title(x_one, x_two):
 
     df = pd.DataFrame(sub_one_dict_title)
     df.to_csv('title_one.csv')
+    df.to_string('title_one.txt')
 
     # ---------------------------------------------------------
 
@@ -492,6 +500,21 @@ def graph_title_regular(x_one, x_two):
     plt.show()
 
 
+def topic_model_title():
+    """
+    topic models the titles of each subreddit
+    :return:
+    """
+    dictionary = corpora.Dictionary(simple_preprocess(line, deacc=True) for line in open('title_one.txt', encoding='utf-8'))
+
+    # Token to Id map
+    dictionary.token2id
+
+
+
+
+
+
 def main():
     initialize_program()
     # save_score(x_one=subreddit_one, x_two=subreddit_two)
@@ -501,7 +524,7 @@ def main():
     # save_date(x_one=subreddit_one, x_two=subreddit_two)
     # save_all(x_one=subreddit_one, x_two=subreddit_two)
     # character_frequency_title()
-    word_frequency_body_one()
+    # word_frequency_body_one()
     # word_frequency_body_two()
     # word_frequency_title_regular_one()
     # word_frequency_title_regular_two()
@@ -509,6 +532,8 @@ def main():
     # word_frequency_title_lowercase_two()
     # graph_title_lowercase(x_one=subreddit_one, x_two=subreddit_two)
     # graph_title_regular(x_one=subreddit_one, x_two=subreddit_two)
+    topic_model_title()
+
 
 
 if __name__ == '__main__':
