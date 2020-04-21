@@ -31,7 +31,7 @@ class BoWCorpus(object):
 mydict = corpora.Dictionary()
 
 # Create the Corpus
-bow_corpus = BoWCorpus('sample.txt', dictionary=mydict)  # memory friendly
+bow_corpus = BoWCorpus('title_one.txt', dictionary=mydict)  # memory friendly
 
 # Print the token_id and count for each line.
 for line in bow_corpus:

@@ -511,10 +511,6 @@ def topic_model_title():
     dictionary.token2id
 
 
-
-
-
-
 def main():
     initialize_program()
     # save_score(x_one=subreddit_one, x_two=subreddit_two)
